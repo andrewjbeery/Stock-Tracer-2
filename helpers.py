@@ -118,15 +118,18 @@ def email_create(sender, to, holdings):
     SCOPES = ['https://www.googleapis.com/auth/gmail.send']
     historic =generate_data(holdings)
     def get_credentials():
-        """Authenticate and return Gmail API credentials."""
         creds = None
         if os.path.exists('token.json'):
             creds = Credentials.from_authorized_user_file('token.json', SCOPES)
         if not creds or not creds.valid:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-            with open('token.json', 'w') as token:
-                token.write(creds.to_json())
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request()) # type: ignore
+            else:
+                flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+                creds = flow.run_local_server(port=0)
+                # Save the credentials with refresh token
+                with open('token.json', 'w') as token:
+                    token.write(creds.to_json())
         return creds
 
     def create_message(sender, to, image_dir):
