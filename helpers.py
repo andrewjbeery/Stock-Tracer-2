@@ -42,20 +42,6 @@ def generate_plots(holdings):
     else:
         os.makedirs('plots')
 
-    # for stock in stocks:
-    #     plt.figure(figsize=(10,6))
-    #     info = yf.Ticker(stock)
-    #     value[stock] = holdings[stock] * info.info['regularMarketPreviousClose']
-    #     stock_history = info.history(period="6mo")
-    #     historic = pd.concat([historic, (stock_history['Close'] * holdings[stock]).rename(stock)], axis=1)
-    #     plt.plot(stock_history.index, stock_history['Close'] * holdings[stock], marker='o', linestyle='-')
-    #     plt.title(f'Six Month Value of {stock.upper()} - {holdings[stock]} Shares')
-    #     # plt.show
-
-    #     plot_filename = f'plots/{stock}_plot.png'
-    #     plt.savefig(plot_filename)
-    #     plt.close()
-
     for stock in stocks:
         plt.figure(figsize=(10, 6))
         info = yf.Ticker(stock)
@@ -85,8 +71,6 @@ def generate_plots(holdings):
         plot_filename = f'plots/{stock}_plot.png'
         plt.savefig(plot_filename)
         plt.close()
-
-
 
     historic['Total'] = historic.sum(axis=1)
     plt.figure(figsize=(10, 6))
