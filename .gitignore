@@ -1,0 +1,7 @@
+test/
+holdings.json
+holdings_real.json
+credentials.json
+token.json
+.env
+plots/
