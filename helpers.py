@@ -173,6 +173,8 @@ def email_create(sender, to, holdings):
         <body>
             <div class="email-container">
                 <h1>Your Daily Portfolio Update Has Landed!</h1>
+                <p>Here’s a quick update on your portfolio. Open the email to view the details.</p>
+                <p>Current value is at close. Yesterday's value is from the previous day</p>
                 <p>{f"Your current portfolio value is ${float(historic['Total'].iloc[-1]):,.2f}"}</p>
                 <div class="image-container">
         """
